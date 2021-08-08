@@ -32,14 +32,24 @@ class Display {
         tableBody.innerHTML += tableBodyHTML;
         // Add Book to books array to store in local storage
         arrBooks.push(book);
+        // Save to local storage
+        localStorage.setItem('books',JSON.stringify(arrBooks));
     }
 
     // Function to Display All Books from Books Array
-    displayAll() {
+    static displayAll() {
+        // Retrive Notes Key Data from Local Storage
+        let booksData = localStorage.getItem('books');
+        // Check if books data is present
+        if (booksData == null) {
+            arrBooks = [];
+        } else {
+            arrBooks = JSON.parse(booksData);
+        }
+
         let tableBody = document.getElementById('bookDetailsTableBody');
-        tableBody.innerHTML = ``;
-        let tableBodyHTML;
-        arrBooks.forEach(function(element,index) {
+        let tableBodyHTML = '';
+        arrBooks.forEach(function (element, index) {
             tableBodyHTML += `<tr>
             <th scope="row">${index + 1}</th>
             <td>${element.name}</td>
@@ -93,6 +103,10 @@ class Display {
     }
 
 }
+
+// Function to get Books from Local Storage and Display
+Display.displayAll();
+
 
 // Add Submit Event Listener to libraryForm
 let libraryForm = document.getElementById('libraryForm');
