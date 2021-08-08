@@ -1,8 +1,9 @@
+// This is JS implementation of Project using ES6 version
 console.log("This is JS File with ES6 Version of JS");
 
-
+// Create Book Class
 class Book {
-
+    // Constructor
     constructor(name, author, type) {
         this.name = name;
         this.author = author;
@@ -11,8 +12,10 @@ class Book {
 
 }
 
+// Create Display Class to manage UI
 class Display {
 
+    // Function to add Book in table
     add(book) {
         let tableBody = document.getElementById('bookDetailsTableBody');
         let tableBodyHTML = `
@@ -26,12 +29,14 @@ class Display {
         tableBody.innerHTML += tableBodyHTML;
     }
 
+    // Function to Clear Form Data
     clear() {
         // Reset Library Form Fields
         let libraryForm = document.getElementById('libraryForm');
         libraryForm.reset(); // reset will erase/reset all form fields
     }
 
+    // Function to validate if all the fields are entered by the user
     validate(book) {
         // Check if Book Name is not Blank
         if (book.name == "") {
@@ -44,6 +49,7 @@ class Display {
         return true;
     }
 
+    // Function to show alert messages
     show(type, message) {
         let boldText = 'Message';
         let alertBox = document.getElementById('alertMessage');

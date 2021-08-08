@@ -1,3 +1,4 @@
+// This is JS implementation of Project using Prototype and Constructors
 console.log("This is JS File for College Library Project");
 
 // Create Book Constructor
@@ -13,6 +14,7 @@ function Display() {
 }
 
 // Add Method to Display prototype
+// Function to add Book in table
 Display.prototype.add = function (book) {
     let tableBody = document.getElementById('bookDetailsTableBody');
     let tableBodyHTML = `
@@ -25,11 +27,15 @@ Display.prototype.add = function (book) {
     `
     tableBody.innerHTML += tableBodyHTML;
 }
+
+// Function to Clear Form Data
 Display.prototype.clear = function () {
     // Reset Library Form Fields
     let libraryForm = document.getElementById('libraryForm');
     libraryForm.reset(); // reset will erase/reset all form fields
 }
+
+// Function to validate if all the fields are entered by the user
 Display.prototype.validate = function (book) {
     // Check if Book Name is not Blank
     if (book.name == "") {
@@ -41,6 +47,8 @@ Display.prototype.validate = function (book) {
     }
     return true;
 }
+
+// Function to show alert messages
 Display.prototype.show = function (type, message) {
     let alertBox = document.getElementById('alertMessage');
     alertHTML = `<div class="alert alert-${type} alert-dismissible fade show" role="alert">
