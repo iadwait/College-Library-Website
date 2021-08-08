@@ -1,0 +1,1 @@
+console.log("This is JS File for College Library Project");
