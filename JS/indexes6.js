@@ -27,13 +27,14 @@ class Display {
                 <td>${book.name}</td>
                 <td>${book.author}</td>
                 <td>${book.type}</td>
+                <td><h6 id="${arrBooks.length - 1} class="deleteBtn" style="color:red;cursor:pointer;position:relative;top:4px;" onclick="deleteBook(${arrBooks.length})">Delete</h6></td>
              </tr>
         `
         tableBody.innerHTML += tableBodyHTML;
         // Add Book to books array to store in local storage
         arrBooks.push(book);
         // Save to local storage
-        localStorage.setItem('books',JSON.stringify(arrBooks));
+        localStorage.setItem('books', JSON.stringify(arrBooks));
     }
 
     // Function to Display All Books from Books Array
@@ -55,6 +56,7 @@ class Display {
             <td>${element.name}</td>
             <td>${element.author}</td>
             <td>${element.type}</td>
+            <td><h6 id="${index} class="deleteBtn" style="color:red;cursor:pointer;position:relative;top:4px;" onclick="deleteBook(${index})">Delete</h6></td>
          </tr>`
         });
         tableBody.innerHTML = tableBodyHTML;
@@ -101,7 +103,6 @@ class Display {
             alertBox.innerHTML = ``;
         }, 5000);
     }
-
 }
 
 // Function to get Books from Local Storage and Display
@@ -152,4 +153,26 @@ function libraryFormSubmit(e) {
 
     // When any form is sbumitted page is reloaded, In order to avoid reload use preventDefault()
     e.preventDefault();
+}
+
+// Function to Delete Book
+function deleteBook(index) {
+    console.log('Delete Book = ' + index);
+
+    // Get all Books from Local Storage
+    let booksData = localStorage.getItem('books');
+    if (booksData == null) {
+        arrBook = [];
+    } else {
+        arrBook = JSON.parse(booksData);
+    }
+
+    // Delete the Book with index and reflect on UI
+    console.log("Before Delete = " + arrBook.length);
+    arrBook.splice(index, 1);
+    console.log("After Delete = " + arrBook.length);
+
+    // Set updated Data in Local Storage
+    localStorage.setItem('books', JSON.stringify(arrBook));
+    Display.displayAll();
 }
