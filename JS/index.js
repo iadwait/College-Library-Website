@@ -30,6 +30,30 @@ Display.prototype.clear = function () {
     let libraryForm = document.getElementById('libraryForm');
     libraryForm.reset(); // reset will erase/reset all form fields
 }
+Display.prototype.validate = function (book) {
+    // Check if Book Name is not Blank
+    if (book.name == "") {
+        return false
+    }
+    // Check if Book Authur is not Blank
+    if (book.author == "") {
+        return false
+    }
+    return true;
+}
+Display.prototype.show = function (type, message) {
+    let alertBox = document.getElementById('alertMessage');
+    alertHTML = `<div class="alert alert-${type} alert-dismissible fade show" role="alert">
+     ${message}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>`
+    alertBox.innerHTML = alertHTML;
+    
+    // After 4 Seconds remove Alert Message
+    setTimeout(function () {
+        alertBox.innerHTML = ``;
+    }, 5000);
+}
 
 
 // Add Submit Event Listener to libraryForm
@@ -60,12 +84,19 @@ function libraryFormSubmit(e) {
 
     // Create Book Object
     let book = new Book(name, author, type);
-    // console.log(typeof book);
+    //  console.log(book);
 
     // Display Book on UI
     let display = new Display();
-    display.add(book);
-    display.clear();
+    if (display.validate(book)) {
+        display.add(book);
+        display.show('success', "Book has been successfully added in library !!");
+        display.clear();
+    } else {
+        // Show Error
+        display.show('danger', "Please input all fields to add a Book !!");
+        // console.log('Error Enter all the Fields');
+    }
 
     // When any form is sbumitted page is reloaded, In order to avoid reload use preventDefault()
     e.preventDefault();
