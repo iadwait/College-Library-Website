@@ -1,6 +1,9 @@
 // This is JS implementation of Project using ES6 version
 console.log("This is JS File with ES6 Version of JS");
 
+// Create Array to Store Books data
+let arrBooks = [];
+
 // Create Book Class
 class Book {
     // Constructor
@@ -20,13 +23,31 @@ class Display {
         let tableBody = document.getElementById('bookDetailsTableBody');
         let tableBodyHTML = `
             <tr>
-                <th scope="row">1</th>
+                <th scope="row">${arrBooks.length + 1}</th>
                 <td>${book.name}</td>
                 <td>${book.author}</td>
                 <td>${book.type}</td>
              </tr>
         `
         tableBody.innerHTML += tableBodyHTML;
+        // Add Book to books array to store in local storage
+        arrBooks.push(book);
+    }
+
+    // Function to Display All Books from Books Array
+    displayAll() {
+        let tableBody = document.getElementById('bookDetailsTableBody');
+        tableBody.innerHTML = ``;
+        let tableBodyHTML;
+        arrBooks.forEach(function(element,index) {
+            tableBodyHTML += `<tr>
+            <th scope="row">${index + 1}</th>
+            <td>${element.name}</td>
+            <td>${element.author}</td>
+            <td>${element.type}</td>
+         </tr>`
+        });
+        tableBody.innerHTML = tableBodyHTML;
     }
 
     // Function to Clear Form Data
@@ -54,9 +75,9 @@ class Display {
         let boldText = 'Message';
         let alertBox = document.getElementById('alertMessage');
 
-        if(type === 'success') {
+        if (type === 'success') {
             boldText = 'Success:';
-        } else if(type === 'danger') {
+        } else if (type === 'danger') {
             boldText = 'Error!';
         }
         let alertHTML = `<div class="alert alert-${type} alert-dismissible fade show" role="alert">
